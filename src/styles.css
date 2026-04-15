@@ -357,6 +357,40 @@ h3 {
   width: 100%;
 }
 
+.password-wrapper .form-input {
+  width: 100%;
+  padding: 10px 40px 10px 38px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  outline: none;
+  box-shadow: none;
+}
+
+.password-wrapper .form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.password-wrapper .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280;
+}
+
 .input-error {
   color: #ef4444;
   font-size: 13px;
@@ -490,22 +524,34 @@ h3 {
   position: relative;
   width: 100%;
 }
-
-.input-with-icon .form-input {
-  padding-left: 35px; /* space for icon */
+.input-with-icon .form-input::placeholder {
+  color: #9ca3af;
 }
 
-.input-with-icon,
-.password-wrapper {
-  position: relative;
+.input-with-icon .form-input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+/* Focus effect */
+.input-with-icon .form-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
 .input-icon {
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.6;
+  color: #6b7280;
+  font-size: 16px;
 }
 
 .form-input {
@@ -531,7 +577,7 @@ h3 {
   border-radius: 16px;
   padding: 15px;
   margin-bottom: 20px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 /* Header */
