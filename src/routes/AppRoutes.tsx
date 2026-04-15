@@ -4,7 +4,7 @@ import Register from "../features/auth/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import TasksPage from "../features/tasks/TasksPage";
 import ForgotPassword from "../features/auth/ForgotPassword";
-import ResetPassword from "../features/auth/Resetpassword";
+import ResetPassword from "../features/auth/ResetPassword";
 
 const AppRoutes = () => {
   return (
