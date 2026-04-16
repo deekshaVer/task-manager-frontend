@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { FiMail } from "react-icons/fi";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL + "/api";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const ForgotPassword = () => {
       setLoading(true);
 
       const res = await fetch(
-        "http://localhost:3000/api/auth/forgot-password",
+        `${API_BASE_URL}/auth/forgot-password`,
         {
           method: "POST",
           headers: {

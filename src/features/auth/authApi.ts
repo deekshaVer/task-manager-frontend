@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface LoginRequest {
   email: string;
@@ -14,16 +14,15 @@ interface AuthResponse {
 }
 
 export const authApi = createApi({
-  reducerPath: 'authApi',
+  reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/api', // backend URL
+    baseUrl: import.meta.env.VITE_API_URL + '/api', // backend URL
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
 
-
       if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+        headers.set("authorization", `Bearer ${token}`);
       }
 
       return headers;
@@ -33,16 +32,16 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginRequest>({
       query: (body) => ({
-        url: '/auth/login',
-        method: 'POST',
+        url: "/auth/login",
+        method: "POST",
         body,
       }),
     }),
 
     register: builder.mutation<AuthResponse, LoginRequest>({
       query: (body) => ({
-        url: '/auth/register',
-        method: 'POST',
+        url: "/auth/register",
+        method: "POST",
         body,
       }),
     }),

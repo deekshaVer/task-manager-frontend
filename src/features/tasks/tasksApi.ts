@@ -18,7 +18,7 @@ export const tasksApi = createApi({
   reducerPath: "tasksApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: import.meta.env.VITE_API_URL + "/api",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
 
@@ -75,7 +75,7 @@ export const tasksApi = createApi({
         try {
           await queryFulfilled;
         } catch {
-          patchResult.undo(); 
+          patchResult.undo();
         }
       },
     }),
@@ -113,7 +113,7 @@ export const tasksApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Projects"], 
+      invalidatesTags: ["Projects"],
     }),
     reorderTasks: builder.mutation({
       query: (tasks) => ({
@@ -132,5 +132,5 @@ export const {
   useDeleteTaskMutation,
   useGetProjectsQuery,
   useAddProjectMutation,
-  useReorderTasksMutation
+  useReorderTasksMutation,
 } = tasksApi;

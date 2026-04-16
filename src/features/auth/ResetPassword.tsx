@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FiLock, FiEye, FiEyeOff, FiCheckCircle } from "react-icons/fi";
-
+import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+const API_BASE_URL = import.meta.env.VITE_API_URL + "/api";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,7 @@ const ResetPassword = () => {
     if (!validate()) return;
 
     try {
-      await fetch(`http://localhost:3000/api/auth/reset-password/${token}`, {
+      await fetch(`${API_BASE_URL}/auth/reset-password/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,14 +47,12 @@ const ResetPassword = () => {
 
       <form onSubmit={handleSubmit} className="auth-form">
         {/* Password */}
-        <div >
-          
+        <div>
           <div className="password-wrapper">
             <FiLock className="input-icon" />
 
             <input
               type={showPassword ? "text" : "password"}
-             
               className="form-input"
               value={password}
               onChange={(e) => {
@@ -76,7 +74,6 @@ const ResetPassword = () => {
 
         {/* Button */}
         <button className="auth-button" type="submit">
-          <FiCheckCircle style={{ marginRight: "6px" }} />
           Reset Password
         </button>
       </form>
