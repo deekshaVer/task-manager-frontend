@@ -43,11 +43,16 @@ const Login = () => {
     try {
       const res = await login({ email, password }).unwrap();
 
+      dispatch(
+        setCredentials({
+          user: res.user,
+          token: res.token,
+        }),
+      );
       localStorage.setItem("token", res.token);
-      dispatch(setCredentials(res));
-
+      localStorage.setItem("user", JSON.stringify(res.user));
       toast.success("Logged in successfully");
-      navigate("/");
+      navigate("/tasks");
     } catch {
       toast.error("Invalid email or password");
     }

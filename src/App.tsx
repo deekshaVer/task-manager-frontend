@@ -12,16 +12,18 @@ function App() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      dispatch(setCredentials({ user: null, token })); 
+      dispatch(setCredentials({ user: null, token }));
     }
   }, [dispatch]);
 
   return (
     <>
-      <button onClick={toggleDarkMode}>
+      <button className="m-3" onClick={toggleDarkMode}>
         {darkMode ? "☀️ Light" : "🌙 Dark"}
       </button>
-
+      <h2 className="logo" onClick={() => (window.location.href = "/")}>
+        Task<span>Pilot</span>
+      </h2>
       <div className="app">
         <div className="main">
           <AppRoutes />

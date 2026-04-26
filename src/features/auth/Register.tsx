@@ -4,14 +4,16 @@ import { useAppDispatch } from "../../app/hook";
 import { setCredentials } from "./authSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiMail, FiLock, FiEye, FiEyeOff, FiUser } from "react-icons/fi";
 
 const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -21,7 +23,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   const validate = () => {
-    const newErrors = { email: "", password: "" };
+    const newErrors = { name: "", email: "", password: "" };
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+    }
 
     if (!email.includes("@")) {
       newErrors.email = "Enter a valid email";
@@ -41,10 +46,18 @@ const Register = () => {
     if (!validate()) return;
 
     try {
-      const res = await register({ email, password }).unwrap();
-
+      const res = await register({ name, email, password }).unwrap();
       localStorage.setItem("token", res.token);
-      dispatch(setCredentials(res));
+      dispatch(
+        setCredentials({
+          user: {
+            id: res.user.id,
+            email: res.user.email,
+            name: res.user.name,
+          },
+          token: res.token,
+        }),
+      );
 
       toast.success("Account created successfully");
       navigate("/");
@@ -58,6 +71,24 @@ const Register = () => {
       <h2 className="auth-title">Create Account</h2>
 
       <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
+          <label>Name</label>
+          <div className="input-with-icon">
+            <FiUser className="input-icon" />
+            <input
+              type="text"
+              className="form-input"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrors({ ...errors, name: "" });
+              }}
+            />
+          </div>
+          {errors.name && <p className="input-error">{errors.name}</p>}
+        </div>
+
         {/* Email */}
         <div className="form-group">
           <label>Email</label>

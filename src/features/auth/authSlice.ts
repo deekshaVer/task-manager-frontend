@@ -4,12 +4,14 @@ interface AuthState {
   user: null | {
     email: string;
     id: string;
+    name?: string;
   };
   token: string | null;
 }
+const savedUser = localStorage.getItem("user");
 
 const initialState: AuthState = {
-  user: null,
+  user: savedUser ? JSON.parse(savedUser) : null,
   token: localStorage.getItem("token") || null,
 };
 
@@ -23,11 +25,15 @@ const authSlice = createSlice({
     ) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },
   },
 });

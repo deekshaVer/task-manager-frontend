@@ -7,23 +7,23 @@ import { useTheme } from "../context/ThemeContext";
 import { toast } from "react-toastify";
 import UserMenu from "./auth/UserMenu";
 import { FiFolder, FiPlus, FiLayers } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 interface SidebarProps {
   selectedProject: string;
   onSelectProject: (projectId: string) => void;
 }
 
-const user = {
-  name: "Deeksha",
-};
-
 const Sidebar = ({ selectedProject, onSelectProject }: SidebarProps) => {
   const { darkMode } = useTheme();
   const [projectName, setProjectName] = useState("");
+  const userDetails = useSelector((state: any) => state.auth.user);
 
   const { data: projects = [] } = useGetProjectsQuery();
   const [addProject] = useAddProjectMutation();
-
+  const user = {
+    name: userDetails?.name,
+  };
   const handleAddProject = useCallback(async () => {
     if (!projectName.trim()) return;
 
@@ -59,9 +59,7 @@ const Sidebar = ({ selectedProject, onSelectProject }: SidebarProps) => {
             onChange={(e) => setProjectName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAddProject()}
             className={`sidebar__input ${
-              darkMode
-                ? "sidebar__input--dark"
-                : "sidebar__input--light"
+              darkMode ? "sidebar__input--dark" : "sidebar__input--light"
             }`}
           />
           <button onClick={handleAddProject} className="icon-btn">

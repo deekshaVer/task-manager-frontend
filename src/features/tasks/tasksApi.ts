@@ -42,7 +42,7 @@ export const tasksApi = createApi({
     // CREATE task
     addTask: builder.mutation<
       Task,
-      { title: string; dueDate?: string; priority: string; projectId?: string }
+      { title: string; dueDate?: string; projectId?: string }
     >({
       query: (body) => ({
         url: "/tasks",

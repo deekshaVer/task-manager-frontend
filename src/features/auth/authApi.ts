@@ -5,10 +5,17 @@ interface LoginRequest {
   password: string;
 }
 
+interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
 interface AuthResponse {
   user: {
     id: string;
     email: string;
+    name?: string;
   };
   token: string;
 }
@@ -17,7 +24,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL + '/api', // backend URL
+    baseUrl: import.meta.env.VITE_API_URL + "/api", // backend URL
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
 
@@ -38,7 +45,7 @@ export const authApi = createApi({
       }),
     }),
 
-    register: builder.mutation<AuthResponse, LoginRequest>({
+    register: builder.mutation<AuthResponse, RegisterRequest>({
       query: (body) => ({
         url: "/auth/register",
         method: "POST",
